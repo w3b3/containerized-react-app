@@ -1,0 +1,26 @@
+import express from 'express';
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
+const app = express();
+const port = 3000;
+
+// Get the directory name using the current module's URL
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
+express.static.mime.define({'text/css': ['css']});
+express.static.mime.define({'application/javascript': ['js']});
+express.static.mime.define({'application/json': ['json']});
+express.static.mime.define({'image/png': ['png']});
+express.static.mime.define({'image/jpeg': ['jpg']});
+
+app.use('/app', express.static('public'));
+
+
+app.get('/', (req, res) => {
+    res.sendFile('public/index.html', { root: __dirname });
+});
+
+app.listen(port, () => {
+    console.log(`Server listening at http://localhost:${port}`);
+});
