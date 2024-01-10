@@ -8,7 +8,7 @@ WORKDIR /app
 COPY package*.json ./
 
 # Install dependencies
-RUN npm ci
+RUN npm install
 
 # Copy app files
 COPY . .
@@ -18,6 +18,9 @@ COPY . .
 
 # Expose the port
 EXPOSE 3000
+
+# At the end, set the user to use when running this image
+USER node
 
 # Start the app
 # CMD ["npm", "start"]
