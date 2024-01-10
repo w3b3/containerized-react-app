@@ -1,5 +1,5 @@
 # Base image
-FROM node:latest
+FROM node:slim
 
 # Set working directory
 WORKDIR /app
@@ -8,7 +8,7 @@ WORKDIR /app
 COPY package*.json ./
 
 # Install dependencies
-RUN npm install
+RUN npm ci
 
 # Copy app files
 COPY . .
