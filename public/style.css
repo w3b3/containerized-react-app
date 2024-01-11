@@ -13,7 +13,7 @@
 
       header {
         z-index: 1;
-        background-color: rgba(0,0,0, 0.75);
+        background-color: #263441;
         width: 100%;
         display: flex;
         justify-content: end;
