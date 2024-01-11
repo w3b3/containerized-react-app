@@ -21,6 +21,19 @@ app.get('/', (req, res) => {
     res.sendFile('public/index.html', { root: __dirname });
 });
 
+// add additional pages such as about, contact, etc.
+app.get('/contact', (req, res) => {
+    res.sendFile('public/contact.html', { root: __dirname });
+});
+
+app.get('/blog', (req, res) => {
+    res.sendFile('public/blog.html', { root: __dirname });
+});
+
+app.get('/buy', (req, res) => {
+    res.sendFile('public/buy.html', { root: __dirname });
+});
+
 app.listen(port, () => {
     console.log(`Server listening at http://localhost:${port}`);
 });
