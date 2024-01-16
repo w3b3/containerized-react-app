@@ -26,9 +26,9 @@ app.get('/contact', (req, res) => {
     res.sendFile('public/contact.html', { root: __dirname });
 });
 
-app.get('/blog', (req, res) => {
-    res.sendFile('public/blog.html', { root: __dirname });
-});
+// app.get('/blog', (req, res) => {
+//     res.sendFile('public/blog.html', { root: __dirname });
+// });
 
 app.get('/buy', (req, res) => {
     res.sendFile('public/buy.html', { root: __dirname });
