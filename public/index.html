@@ -118,7 +118,7 @@
           // move the textContent above to inside the element with class = title
           const titleElement = listItem.querySelector("h1.title");
           titleElement.textContent = sub.snippet.title;
-          const imageElement = createElement("img");
+          const imageElement = document.createElement("img");
           imageElement.src = sub.snippet.thumbnails.default.url;
           imageElement.alt = sub.snippet.title;
           imageElement.width = 100;
