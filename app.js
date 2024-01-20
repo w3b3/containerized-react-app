@@ -21,6 +21,12 @@ app.get('/', (req, res) => {
     res.sendFile('public/index.html', { root: __dirname });
 });
 
+
+// auth callback endpoint destination that causes a redirect to /
+app.get('/oauth2callback', (req, res) => {
+    res.sendFile('public/oauth2callback.html', { root: __dirname });
+});
+
 // add additional pages such as about, contact, etc.
 app.get('/contact', (req, res) => {
     res.sendFile('public/contact.html', { root: __dirname });
