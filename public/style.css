@@ -36,6 +36,8 @@ body {
   background-image: url("copernico-p_kICQCOM4s-unsplash.jpg");
   background-attachment: fixed;
   background-blend-mode: hard-light;
+  /* partially supported */
+  -webkit-backdrop-filter: blur(1px);
   backdrop-filter: blur(1px);
   background-size: cover;
   background-repeat: no-repeat;
@@ -62,12 +64,13 @@ body {
 
 .card {
   color: black;
+  text-decoration: double;
   width: 40vw;
   max-width: 300px;
   position: relative;
-  background-color: rgba(245, 245, 245, 0.95);
+  background-color: rgb(228 228 228 / 67%);;
   border: 1px solid #ddd;
-  padding: 30px;
+  padding: 10px;
   margin: 2vh 1vw;
   border-radius: 4px;
 }
@@ -80,7 +83,7 @@ body {
   flex-direction: row-reverse;
   flex-wrap: nowrap;
   align-items: center;
-  justify-content: space-between;
+  justify-content: start;
 }
 
 .thumbnail {
