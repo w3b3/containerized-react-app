@@ -1,19 +1,24 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-7342EX4ZK2"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-7342EX4ZK2"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
 
-  gtag('config', 'G-7342EX4ZK2');
-</script>
+      gtag("config", "G-7342EX4ZK2");
+    </script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<!-- add title -->
+
+    <!-- add title -->
     <title>🏠Willis-Brown</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -21,8 +26,8 @@
       href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300&display=swap"
       rel="stylesheet"
     />
-      <link rel="stylesheet" href="app/style.css" type="text/css" />
-    </head>
+    <link rel="stylesheet" href="app/style.css" type="text/css" />
+  </head>
   <body>
     <div class="bottom">
       <header>
@@ -34,9 +39,9 @@
 
         <img class="logo" src="app/logo.png" alt="" />
       </header>
-      <button onclick="fetchNextPage" value="More" id="load-more" type="button" />
+      <button onclick="fetchNextPage" id="load-more" type="button">More</button>
       <article id="posts" class="posts">
-        <section class="card">
+        <!-- <section class="card">
           <span class="icon">💕</span>
 
           <h1>Breaking news from the world of CSS!</h1>
@@ -46,80 +51,84 @@
             deserunt consequuntur nemo dicta at et aperiam voluptas pariatur
             ipsa quas reiciendis tempora aspernatur. Nulla!
           </div>
-        </section>
+        </section> -->
       </article>
     </div>
     <script>
-    function fetchSubscriptions(pageToken = '') {
-            const authToken = sessionStorage.getItem('authToken');
+      let nextPageToken = "";
 
-            if (!authToken) {
-                console.error('No auth token found');
-                return;
+      function fetchSubscriptions(pageToken) {
+        const authToken = sessionStorage.getItem("authToken");
+
+        if (!authToken) {
+          console.error("No auth token found");
+          return;
+        }
+        
+        let url = `https://www.googleapis.com/youtube/v3/subscriptions?part=snippet,contentDetails&mine=true&maxResults=50`;
+        
+        if (pageToken) {
+          url += `&pageToken=${pageToken}`;
+        }
+
+        fetch(url, {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${authToken}`,
+            "Content-Type": "application/json",
+          },
+        })
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error("Network response was not ok");
             }
-            let url = `https://www.googleapis.com/youtube/v3/subscriptions?part=snippet,contentDetails&mine=true&maxResults=50`;
-    if (pageToken) {
-        url += `&pageToken=${pageToken}`;
-            fetch(url, {
-                method: 'GET',
-                headers: {
-                    'Authorization': `Bearer ${authToken}`,
-                    'Content-Type': 'application/json'
-                }
-            })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                return response.json();
-            })
-            .then(data => {
-                displaySubscriptions(data.items);
-                        nextPageToken = data.nextPageToken || '';
-            })
-            .catch(error => {
-                console.error('Error fetching subscriptions:', error);
-            });
+            return response.json();
+          })
+          .then((data) => {
+            displaySubscriptions(data.items);
+            nextPageToken = data.nextPageToken || "";
+          })
+          .catch((error) => {
+            console.error("Error fetching subscriptions:", error);
+          });
+      }
 
-            }
-            }
+      // Call this function to fetch the next set of results
+      function fetchNextPage() {
+        if (nextPageToken) {
+          fetchSubscriptions(nextPageToken);
+        } else {
+          console.log("No more pages to fetch");
+        }
+      }
 
-// Call this function to fetch the next set of results
-function fetchNextPage() {
-    if (nextPageToken) {
-        fetchSubscriptions(nextPageToken);
-    } else {
-        console.log("No more pages to fetch");
-    }
-}
+      function displaySubscriptions(subscriptions) {
+        const list = document.getElementById("posts");
+        list.innerHTML = ""; // Clear existing list
 
-        function displaySubscriptions(subscriptions) {
-            const list = document.getElementById('posts');
-            list.innerHTML = ''; // Clear existing list
-
-            subscriptions.forEach(sub => {
-                const listItem = document.createElement('section');
-                //listItem.textContent = sub.snippet.title;
-                listItem.className='card';
-                listItem.innerHTML = `
+        subscriptions.forEach((sub) => {
+          const listItem = document.createElement("section");
+          //listItem.textContent = sub.snippet.title;
+          listItem.className = "card";
+          listItem.innerHTML = `
                     <span class="icon">💕</span>
                     <h1 class='title'>foo</h1>
                     <div class="body">foo</div>
                 `;
-                // move the textContent above to inside the element with class = title
-                const titleElement = listItem.querySelector('h1.title');
-                titleElement.textContent = sub.snippet.title;
-                const bodyElement = listItem.querySelector('div.body');
-                bodyElement.textContent = sub.snippet.description;
-                // show the span.icon only if contentDetails.totalItemCount is greater than 3000
-                const iconElement = listItem.querySelector('span.icon');
-                iconElement.style.display = sub.contentDetails.totalItemCount >= 3000 ? 'unset' : 'none';
-                list.appendChild(listItem);
+          // move the textContent above to inside the element with class = title
+          const titleElement = listItem.querySelector("h1.title");
+          titleElement.textContent = sub.snippet.title;
+          const bodyElement = listItem.querySelector("div.body");
+          bodyElement.textContent = sub.snippet.description;
+          // show the span.icon only if contentDetails.totalItemCount is greater than 3000
+          const iconElement = listItem.querySelector("span.icon");
+          iconElement.style.display =
+            sub.contentDetails.totalItemCount >= 3000 ? "unset" : "none";
+          list.appendChild(listItem);
+        });
+      }
 
-            });
-        }
-
-        fetchSubscriptions();
-        </script>
+      fetchSubscriptions();
+    </script>
   </body>
 </html>
