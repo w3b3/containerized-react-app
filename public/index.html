@@ -126,7 +126,14 @@
           imageElement.className = "thumbnail";
           titleElement.appendChild(imageElement);
           const linkElement = listItem.querySelector("a.link");
-          linkElement.textContent = `https://youtube.com/channel/${sub.snippet.resourceId.channelId}`;
+          linkElement.href = `https://youtube.com/channel/${sub.snippet.resourceId.channelId}`;
+          linkElement.target = "_blank";
+          linkElement.rel = "noopener noreferrer";
+          // link color should be blue and bold
+          linkElement.style.color = "blue";
+          linkElement.style.fontWeight = "bold";
+  
+          // linkElement.textContent = `Go to ${sub.snippet.title}`;
           // show the span.icon only if contentDetails.totalItemCount is greater than 3000
           const iconElement = listItem.querySelector("span.icon");
           iconElement.style.display =
