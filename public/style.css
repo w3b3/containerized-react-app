@@ -1,101 +1,111 @@
 * {
-        font-family: "Roboto Condensed", sans-serif;
-        font-weight: 300;
-      }
-      a {
-        text-decoration: none;
-        color: whitesmoke;
-      }
+  font-family: "Roboto Condensed", sans-serif;
+  font-weight: 300;
+}
+a {
+  text-decoration: none;
+  color: whitesmoke;
+}
 
 .bottom {
   position: relative;
 }
 
-      header {
-        z-index: 1;
-        background-color: #263441;
-        width: 100%;
-        display: flex;
-        justify-content: end;
-        align-items: center;
-        position: sticky;
-        top: 0;
-        right: 0;
-      }
+header {
+  z-index: 1;
+  background-color: #263441;
+  width: 100%;
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  right: 0;
+}
 
-      header a {
-        margin: 0 24px;
-      }
+header a {
+  margin: 0 24px;
+}
 
-      body {
-        display: flex;
-        min-height: 100vh;
-        padding: 0;
-        margin: 0;
-        /* background-image: url("neom-yUcH008GS6A-unsplash.jpg"); */
-        background-image: url("copernico-p_kICQCOM4s-unsplash.jpg");
-        background-attachment: fixed;
-        background-blend-mode: hard-light;
-        backdrop-filter: blur(1px);
-        background-size: cover;
-        background-repeat: no-repeat;
-        background-clip: border-box;
-      }
+body {
+  display: flex;
+  min-height: 100vh;
+  padding: 0;
+  margin: 0;
+  /* background-image: url("neom-yUcH008GS6A-unsplash.jpg"); */
+  background-image: url("copernico-p_kICQCOM4s-unsplash.jpg");
+  background-attachment: fixed;
+  background-blend-mode: hard-light;
+  backdrop-filter: blur(1px);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-clip: border-box;
+}
 
-      .bottom {
-        display: flex;
-        flex-direction: column;
-        width: 100%;
-        margin: 0;
-        padding: 0;
-      }
+.bottom {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
 
-      .posts {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        width: 100%;
-        max-width: 1280px;
-        margin: 0 auto;
-        padding-top: 60px;
-      }
+.posts {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding-top: 60px;
+}
 
-      .card {
-        color: black;
-        width: 40vw;
-        max-width: 400px;
-        position: relative;
-        background-color: rgba(245, 245, 245, 0.95);
-        border: 1px solid #ddd;
-        padding: 30px;
-        margin: 2vh 1vw;
-        border-radius: 4px;
-      }
+.card {
+  color: black;
+  width: 40vw;
+  max-width: 300px;
+  position: relative;
+  background-color: rgba(245, 245, 245, 0.95);
+  border: 1px solid #ddd;
+  padding: 30px;
+  margin: 2vh 1vw;
+  border-radius: 4px;
+}
 
-      h1 {
-        margin: 0 0 20px 0;
-        font-size: 24px;
-        border-bottom: 2px solid whitesmoke;
-      }
+.title {
+  margin: 0 0 20px 0;
+  font-size: 24px;
+  border-bottom: 2px solid whitesmoke;
+  display: flex;
+  flex-direction: row-reverse;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: space-between;
+}
 
-      .icon {
-        position: absolute;
-        top: -12px; /* align to the top edge of the h1 */
-        right: -12px; /* align to the right edge of the h1 */
-        text-transform: uppercase;
-        font-size: 30px;
-        padding: 10px;
-        margin: 0;
-      }
+.thumbnail {
+  border-radius: 50%;
+  width: 50px;
+  height: 50%;
+}
 
-      .logo {
-        width: auto;
-        height: 50px;
-      }
+.icon {
+  position: absolute;
+  top: -12px; /* align to the top edge of the h1 */
+  right: -12px; /* align to the right edge of the h1 */
+  text-transform: uppercase;
+  font-size: 30px;
+  padding: 10px;
+  margin: 0;
+}
 
+.logo {
+  width: auto;
+  height: 50px;
+}
 
-      @media screen and (max-width: 1024px) {
-        .card {
-          width: 90vw;
-        }
-      }
+@media screen and (max-width: 1024px) {
+  .card {
+    width: 90vw;
+  }
+}

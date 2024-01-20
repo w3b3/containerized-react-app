@@ -133,6 +133,10 @@
           linkElement.style.color = "blue";
           linkElement.style.fontWeight = "bold";
   
+          spanElement = document.createElement("span");
+          spanElement.textContent = `🆕 Recently released ${sub.contentDetails.newItemCount} videos`;
+          spanElement.className = "new-item-count";
+          linkElement.appendChild(spanElement);
           // linkElement.textContent = `Go to ${sub.snippet.title}`;
           // show the span.icon only if contentDetails.totalItemCount is greater than 3000
           const iconElement = listItem.querySelector("span.icon");
