@@ -34,115 +34,8 @@
 
         <img class="logo" src="app/logo.png" alt="" />
       </header>
-      <article class="posts">
-        <section class="card">
-          <span class="icon">💕</span>
-
-          <h1>Breaking news from the world of CSS!</h1>
-          <div class="body">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim
-            dolorem commodi cumque assumenda necessitatibus, exercitationem
-            deserunt consequuntur nemo dicta at et aperiam voluptas pariatur
-            ipsa quas reiciendis tempora aspernatur. Nulla!
-          </div>
-        </section>
-
-        <section class="card">
-          <span class="icon">💕</span>
-
-          <h1>Breaking news from the world of CSS!</h1>
-          <div class="body">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim
-            dolorem commodi cumque assumenda necessitatibus, exercitationem
-            deserunt consequuntur nemo dicta at et aperiam voluptas pariatur
-            ipsa quas reiciendis tempora aspernatur. Nulla!
-          </div>
-        </section>
-
-        <section class="card">
-          <span class="icon">💕</span>
-
-          <h1>Breaking news from the world of CSS!</h1>
-          <div class="body">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim
-            dolorem commodi cumque assumenda necessitatibus, exercitationem
-            deserunt consequuntur nemo dicta at et aperiam voluptas pariatur
-            ipsa quas reiciendis tempora aspernatur. Nulla!
-          </div>
-        </section>
-
-        <section class="card">
-          <span class="icon">💕</span>
-
-          <h1>Breaking news from the world of CSS!</h1>
-          <div class="body">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim
-            dolorem commodi cumque assumenda necessitatibus, exercitationem
-            deserunt consequuntur nemo dicta at et aperiam voluptas pariatur
-            ipsa quas reiciendis tempora aspernatur. Nulla!
-          </div>
-        </section>
-
-        <section class="card">
-          <span class="icon">💕</span>
-
-          <h1>Breaking news from the world of CSS!</h1>
-          <div class="body">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim
-            dolorem commodi cumque assumenda necessitatibus, exercitationem
-            deserunt consequuntur nemo dicta at et aperiam voluptas pariatur
-            ipsa quas reiciendis tempora aspernatur. Nulla!
-          </div>
-        </section>
-
-        <section class="card">
-          <span class="icon">💕</span>
-
-          <h1>Breaking news from the world of CSS!</h1>
-          <div class="body">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim
-            dolorem commodi cumque assumenda necessitatibus, exercitationem
-            deserunt consequuntur nemo dicta at et aperiam voluptas pariatur
-            ipsa quas reiciendis tempora aspernatur. Nulla!
-          </div>
-        </section>
-
-        <section class="card">
-          <span class="icon">💕</span>
-
-          <h1>Breaking news from the world of CSS!</h1>
-          <div class="body">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim
-            dolorem commodi cumque assumenda necessitatibus, exercitationem
-            deserunt consequuntur nemo dicta at et aperiam voluptas pariatur
-            ipsa quas reiciendis tempora aspernatur. Nulla!
-          </div>
-        </section>
-
-        <section class="card">
-          <span class="icon">💕</span>
-
-          <h1>Breaking news from the world of CSS!</h1>
-          <div class="body">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim
-            dolorem commodi cumque assumenda necessitatibus, exercitationem
-            deserunt consequuntur nemo dicta at et aperiam voluptas pariatur
-            ipsa quas reiciendis tempora aspernatur. Nulla!
-          </div>
-        </section>
-
-        <section class="card">
-          <span class="icon">💕</span>
-
-          <h1>Breaking news from the world of CSS!</h1>
-          <div class="body">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim
-            dolorem commodi cumque assumenda necessitatibus, exercitationem
-            deserunt consequuntur nemo dicta at et aperiam voluptas pariatur
-            ipsa quas reiciendis tempora aspernatur. Nulla!
-          </div>
-        </section>
-
+      <button onclick="fetchNextPage" value="More" id="load-more" type="button" />
+      <article id="posts" class="posts">
         <section class="card">
           <span class="icon">💕</span>
 
@@ -156,5 +49,77 @@
         </section>
       </article>
     </div>
+    <script>
+    function fetchSubscriptions(pageToken = '') {
+            const authToken = sessionStorage.getItem('authToken');
+
+            if (!authToken) {
+                console.error('No auth token found');
+                return;
+            }
+            let url = `https://www.googleapis.com/youtube/v3/subscriptions?part=snippet,contentDetails&mine=true&maxResults=50`;
+    if (pageToken) {
+        url += `&pageToken=${pageToken}`;
+            fetch(url, {
+                method: 'GET',
+                headers: {
+                    'Authorization': `Bearer ${authToken}`,
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                displaySubscriptions(data.items);
+                        nextPageToken = data.nextPageToken || '';
+            })
+            .catch(error => {
+                console.error('Error fetching subscriptions:', error);
+            });
+
+            }
+            }
+
+// Call this function to fetch the next set of results
+function fetchNextPage() {
+    if (nextPageToken) {
+        fetchSubscriptions(nextPageToken);
+    } else {
+        console.log("No more pages to fetch");
+    }
+}
+
+        function displaySubscriptions(subscriptions) {
+            const list = document.getElementById('posts');
+            list.innerHTML = ''; // Clear existing list
+
+            subscriptions.forEach(sub => {
+                const listItem = document.createElement('section');
+                //listItem.textContent = sub.snippet.title;
+                listItem.className='card';
+                listItem.innerHTML = `
+                    <span class="icon">💕</span>
+                    <h1 class='title'>foo</h1>
+                    <div class="body">foo</div>
+                `;
+                // move the textContent above to inside the element with class = title
+                const titleElement = listItem.querySelector('h1.title');
+                titleElement.textContent = sub.snippet.title;
+                const bodyElement = listItem.querySelector('div.body');
+                bodyElement.textContent = sub.snippet.description;
+                // show the span.icon only if contentDetails.totalItemCount is greater than 3000
+                const iconElement = listItem.querySelector('span.icon');
+                iconElement.style.display = sub.contentDetails.totalItemCount >= 3000 ? 'unset' : 'none';
+                list.appendChild(listItem);
+
+            });
+        }
+
+        fetchSubscriptions();
+        </script>
   </body>
 </html>
