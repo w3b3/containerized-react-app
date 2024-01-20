@@ -113,17 +113,24 @@
           listItem.innerHTML = `
                     <span class="icon">💕</span>
                     <h1 class='title'>foo</h1>
-                    <div class="body">foo</div>
+                    <a class="link">Go to the channel</a>
                 `;
           // move the textContent above to inside the element with class = title
           const titleElement = listItem.querySelector("h1.title");
           titleElement.textContent = sub.snippet.title;
-          const bodyElement = listItem.querySelector("div.body");
-          bodyElement.textContent = sub.snippet.description;
+          const imageElement = createElement("img");
+          imageElement.src = sub.snippet.thumbnails.default.url;
+          imageElement.alt = sub.snippet.title;
+          imageElement.width = 100;
+          imageElement.height = 100;
+          imageElement.className = "thumbnail";
+          titleElement.appendChild(imageElement);
+          const linkElement = listItem.querySelector("a.link");
+          linkElement.textContent = `https://youtube.com/channel/${sub.snippet.resourceId.channelId}`;
           // show the span.icon only if contentDetails.totalItemCount is greater than 3000
           const iconElement = listItem.querySelector("span.icon");
           iconElement.style.display =
-            sub.contentDetails.totalItemCount >= 3000 ? "unset" : "none";
+            sub.contentDetails.totalItemCount >= 10000 ? "unset" : "none";
           list.appendChild(listItem);
         });
       }
