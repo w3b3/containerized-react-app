@@ -136,6 +136,7 @@ document.addEventListener('DOMContentLoaded', function() {
     fetchSubscriptions();
     document.getElementById("logout").style.display = "block";
   } else {
+    document.getElementById("load-more").style.display = "none";
     document.getElementById("logout").style.display = "none";
   }
   
