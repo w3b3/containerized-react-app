@@ -26,7 +26,8 @@ function fetchUserProfile() {
       // save the user's name to sessionStorage
       sessionStorage.setItem("userName", data.name);
       sessionStorage.setItem("userEmail", data.email);
-
+      document.getElementById("login").textContent = data.email;
+      document.getElementById("logout").style.display = "initial";
       // data.name for the user's name
       // data.email for the user's email
     })
@@ -34,8 +35,6 @@ function fetchUserProfile() {
       console.error("Error fetching user profile:", error);
     });
 }
-
-fetchUserProfile();
 
 let nextPageToken = "";
 
@@ -125,4 +124,7 @@ function displaySubscriptions(subscriptions) {
   });
 }
 
-fetchSubscriptions();
+if (sessionStorage.getItem("authToken")) {
+  fetchUserProfile();
+  fetchSubscriptions();
+}
