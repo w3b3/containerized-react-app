@@ -55,6 +55,54 @@
       </article>
     </div>
     <script>
+      const scopes = [
+        // "https://www.googleapis.com/auth/youtube",
+        "https://www.googleapis.com/auth/userinfo.profile",
+        "https://www.googleapis.com/auth/userinfo.email",
+      ];
+
+      const authUrl = oauth2Client.generateAuthUrl({
+        access_type: "offline",
+        scope: scopes,
+      });
+
+      function fetchUserProfile() {
+        if (sessionStorage.getItem("userName")) {
+          // console.error("User already authenticated");
+          // how to handle when the token expires?
+          return;
+        }
+        const authToken = sessionStorage.getItem("authToken");
+
+        if (!authToken) {
+          console.error("No auth token found");
+          return;
+        }
+
+        fetch("https://www.googleapis.com/oauth2/v2/userinfo", {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${authToken}`,
+            "Content-Type": "application/json",
+          },
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            console.log("User Info:", data);
+            // save the user's name to sessionStorage
+            sessionStorage.setItem("userName", data.name);
+            sessionStorage.setItem("userEmail", data.email);
+
+            // data.name for the user's name
+            // data.email for the user's email
+          })
+          .catch((error) => {
+            console.error("Error fetching user profile:", error);
+          });
+      }
+
+      fetchUserProfile();
+
       let nextPageToken = "";
 
       function fetchSubscriptions(pageToken) {
@@ -64,9 +112,9 @@
           console.error("No auth token found");
           return;
         }
-        
+
         let url = `https://www.googleapis.com/youtube/v3/subscriptions?part=snippet,contentDetails&mine=true&maxResults=50`;
-        
+
         if (pageToken) {
           url += `&pageToken=${pageToken}`;
         }
@@ -132,7 +180,7 @@
           // link color should be blue and bold
           linkElement.style.color = "blue";
           linkElement.style.fontWeight = "bold";
-          if(sub.contentDetails.newItemCount > 0) {
+          if (sub.contentDetails.newItemCount > 0) {
             linkElement.textContent = `🆕 Recently released ${sub.contentDetails.newItemCount} videos`;
           }
           // show the span.icon only if contentDetails.totalItemCount is greater than 3000
