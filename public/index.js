@@ -1,11 +1,11 @@
 'use strict';
 
 function fetchUserProfile() {
-  if (sessionStorage.getItem("userName")) {
+  // if (sessionStorage.getItem("userName")) {
     // console.error("User already authenticated");
     // how to handle when the token expires?
-    return;
-  }
+    // return;
+  // }
   const authToken = sessionStorage.getItem("authToken");
 
   if (!authToken) {
@@ -20,14 +20,19 @@ function fetchUserProfile() {
       "Content-Type": "application/json",
     },
   })
-    .then((response) => response.json())
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+      response.json();
+    })
     .then((data) => {
       console.log("User Info:", data);
       // save the user's name to sessionStorage
       sessionStorage.setItem("userName", data.name);
       sessionStorage.setItem("userEmail", data.email);
       document.getElementById("login").textContent = data.email;
-      document.getElementById("logout").style.display = "initial";
+      document.getElementById("logout").style.display = "block";
       // data.name for the user's name
       // data.email for the user's email
     })
