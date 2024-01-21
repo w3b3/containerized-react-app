@@ -127,4 +127,7 @@ function displaySubscriptions(subscriptions) {
 if (sessionStorage.getItem("authToken")) {
   fetchUserProfile();
   fetchSubscriptions();
+  document.getElementById("logout").style.display = "block";
+} else {
+  document.getElementById("login").style.display = "none";
 }
