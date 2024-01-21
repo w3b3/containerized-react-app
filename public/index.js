@@ -129,5 +129,5 @@ if (sessionStorage.getItem("authToken")) {
   fetchSubscriptions();
   document.getElementById("logout").style.display = "block";
 } else {
-  document.getElementById("login").style.display = "none";
+  document.getElementById("logout").style.display = "none";
 }
