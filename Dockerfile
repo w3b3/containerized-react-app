@@ -1,5 +1,5 @@
 # Base image
-FROM node:latest
+FROM node
 
 # Set working directory
 WORKDIR /app
@@ -17,7 +17,7 @@ COPY . .
 # RUN npm run build
 
 # Expose the port
-EXPOSE 3000
+EXPOSE 1234
 
 # At the end, set the user to use when running this image
 USER node
