@@ -124,10 +124,14 @@ function displaySubscriptions(subscriptions) {
   });
 }
 
-if (sessionStorage.getItem("authToken")) {
-  fetchUserProfile();
-  fetchSubscriptions();
-  document.getElementById("logout").style.display = "block";
-} else {
-  document.getElementById("logout").style.display = "none";
-}
+document.addEventListener('DOMContentLoaded', function() {
+  
+  if (sessionStorage.getItem("authToken")) {
+    fetchUserProfile();
+    fetchSubscriptions();
+    document.getElementById("logout").style.display = "block";
+  } else {
+    document.getElementById("logout").style.display = "none";
+  }
+  
+});
