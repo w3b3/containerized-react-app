@@ -1,41 +1,41 @@
-<!DOCTYPE html>
-<html>
-<head>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>OAuth Callback Handler</title>
     <script>
-        window.onload = function() {
-            // Extract the code from the URL
-            const urlParams = new URLSearchParams(window.location.search);
-            const code = urlParams.get('code');
-            if (code) {
-                // Send the code to the backend
-                fetch('https://api.codein.ca/exchange_code', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({ code: code })
-                })
-                .then(response => response.json())
-                .then(data => {
-                    // Store the token in local storage or session storage
-                    sessionStorage.setItem('authToken', data.token);
+      window.onload = function () {
+        // Extract the code from the URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const code = urlParams.get("code");
+        if (code) {
+          // Send the code to the backend
+          fetch("https://api.codein.ca/exchange_code", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ code: code }),
+          })
+            .then((response) => response.json())
+            .then((data) => {
+              // Store the token in local storage or session storage
+              sessionStorage.setItem("authToken", data.token);
 
-                    // Redirect to the authenticated main page
-                    window.location.href = 'https://codein.ca';
-                })
-                            .catch(error => {
-                                        console.error('Error:', error);
-                                        document.getElementById('text_outlet').textContent = error;
-                                    });
-                    } else {
-                            window.location.href = 'https://codein.ca';
-                            }
-        };
+              // Redirect to the authenticated main page
+              window.location.href = "https://codein.ca";
+            })
+            .catch((error) => {
+              console.error("Error:", error);
+              document.getElementById("text_outlet").textContent = error;
+            });
+        } else {
+          window.location.href = "https://codein.ca";
+        }
+      };
     </script>
-</head>
-<body>
-    <h1 id='text_outlet'>Processing authentication...</h1>
-</body>
+  </head>
+  <body>
+    <h1 id="text_outlet">Processing authentication...</h1>
+  </body>
 </html>
-

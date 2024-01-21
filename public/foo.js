@@ -1,13 +1,4 @@
-// const scopes = [
-//   "https://www.googleapis.com/auth/youtube",
-//   "https://www.googleapis.com/auth/userinfo.profile",
-//   "https://www.googleapis.com/auth/userinfo.email",
-// ];
-
-// const authUrl = oauth2Client.generateAuthUrl({
-//   access_type: "offline",
-//   scope: scopes,
-// });
+'use strict';
 
 function fetchUserProfile() {
   if (sessionStorage.getItem("userName")) {
