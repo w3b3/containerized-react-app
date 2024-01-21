@@ -103,8 +103,8 @@ function displaySubscriptions(subscriptions) {
     const imageElement = document.createElement("img");
     imageElement.src = sub.snippet.thumbnails.default.url;
     imageElement.alt = sub.snippet.title;
-    imageElement.width = 100;
-    imageElement.height = 100;
+    // imageElement.width = 100;
+    // imageElement.height = 100;
     imageElement.className = "thumbnail";
     titleElement.appendChild(imageElement);
     const linkElement = listItem.querySelector("a.link");
