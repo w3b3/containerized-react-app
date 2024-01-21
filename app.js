@@ -8,13 +8,13 @@ const port = 3000;
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-express.static.mime.define({'text/css': ['css']});
-express.static.mime.define({'application/javascript': ['js']});
-express.static.mime.define({'application/json': ['json']});
-express.static.mime.define({'image/png': ['png']});
-express.static.mime.define({'image/jpeg': ['jpg']});
+// express.static.mime.define({'text/css': ['css']});
+// express.static.mime.define({'application/javascript': ['js']});
+// express.static.mime.define({'application/json': ['json']});
+// express.static.mime.define({'image/png': ['png']});
+// express.static.mime.define({'image/jpeg': ['jpg']});
 
-app.use('/app', express.static('public'));
+app.use('/static', express.static('public'));
 
 
 app.get('/', (req, res) => {
