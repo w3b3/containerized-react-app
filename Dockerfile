@@ -1,5 +1,5 @@
 # Base image
-FROM node
+FROM node:lts-alpine
 
 # Set working directory
 WORKDIR /app
