@@ -2,31 +2,33 @@ version: '3'
 # docker run -p 1234:3000 --name ui -e "NODE_ENV=production" --init -m "300M" --memory-swap "1G" -d ui
 services:
   ui:
-    #    image: w3b3/web-app-001:latest
     build:
       context: .
+    image: w3b3/web-app-001:latest
+    container_name: web-app-001
     volumes:
       - type: bind
         source: .
         target: /app
-    hostname: web_yt
+    hostname: web-app-001
     labels:
       - "ca.codein=Web interface"
     networks:
       - youtube_api
-    init: true
-    restart: "on-failure:3"
-    container_name: ui
-    environment:
-      - PUID=1000
-      - PGID=1000
-      - TZ=Etc/UTC
-      - NODE_ENV=production
+#    init: true
+#    restart: "on-failure:3"
+#    environment:
+#      - PUID=1000
+#      - PGID=1000
+#      - TZ=Etc/UTC
+#      - NODE_ENV=development
         #    volumes:
         #      - /home/ds/containers/docker-volumes:/config
+    env_file:
+      - ./.env
     expose:
-      - "1234"
+      - 1234
     ports:
-      - 1234:3000
+      - "1235:1234"
 networks:
   youtube_api:

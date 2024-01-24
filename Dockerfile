@@ -17,7 +17,7 @@ COPY . .
 # RUN npm run build
 
 # Expose the port
-EXPOSE 1234
+EXPOSE 3000
 
 # At the end, set the user to use when running this image
 USER node
