@@ -95,6 +95,7 @@ function displaySubscriptions(subscriptions) {
   subscriptions.forEach((sub) => {
     const listItem = document.createElement("section");
     //listItem.textContent = sub.snippet.title;
+    listItem.id = sub.id;
     listItem.className = "card";
     listItem.innerHTML = `
                     <span class="icon">💕</span>
@@ -125,14 +126,53 @@ function displaySubscriptions(subscriptions) {
     const iconElement = listItem.querySelector("span.icon");
     iconElement.style.display =
       sub.contentDetails.totalItemCount >= 10000 ? "unset" : "none";
+    const unsubscribeElement = document.createElement("button");
+      unsubscribeElement.textContent = sub.id;
+      unsubscribeElement.dataset.subscriptionId = sub.id;
+      unsubscribeElement.onclick = function () {
+        const subId = this.dataset.subscriptionId;
+        const authToken = sessionStorage.getItem("authToken");
+        unsubscribe(authToken, subId);
+      }
+      listItem.appendChild(unsubscribeElement);
     list.appendChild(listItem);
   });
+}
+
+function unsubscribe(auth, id) {
+    console.info("inside unsubscribe")
+    console.log(id, auth)
+  fetch("https://api.codein.ca/unsubscribe", {
+      method: "POST",
+      headers: {
+        //Authorization: `Bearer ${authToken}`,
+        "Content-Type": "application/json",
+      },
+// body must be unpacked in the destination.
+	  // the content from the fetch is a json object already. body content is a string
+	  body: JSON.stringify({auth, id})
+      
+})
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(JSON.stringify(response));
+        }
+        return response.json();                                                                                                                            72     })
+      .then((data) => {
+        console.log("all good with unsubscription");
+          document.getElementById(id).style.display = "none"
+
+          return "all good"
+      })
+      .catch((error) => {
+        console.error("Error fetching subscriptions:", error);
+      });
 }
 
 document.addEventListener('DOMContentLoaded', function() {
   
   if (sessionStorage.getItem("authToken")) {
-    fetchUserProfile();
+//    fetchUserProfile();
     fetchSubscriptions();
     document.getElementById("logout").style.display = "block";
   } else {

@@ -29,6 +29,6 @@ services:
     expose:
       - 1234
     ports:
-      - "1235:1234"
+      - "1234:1234"
 networks:
   youtube_api:
