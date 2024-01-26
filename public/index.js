@@ -141,7 +141,6 @@ function displaySubscriptions(subscriptions) {
 }
 
 function unsubscribe(id) {
-  console.info("inside unsubscribe");
   // console.log(id, auth);
   try {
     fetch("https://api.codein.ca/unsubscribe", {
@@ -156,13 +155,14 @@ function unsubscribe(id) {
       body: JSON.stringify({ id }),
     })
       .then((response) => {
+        console.log("all NOT good YET with unsubscription", response);
         if (!response.ok) {
           throw new Error(JSON.stringify(response));
         }
         return response.json();
       })
       .then((data) => {
-        // console.log("all good with unsubscription");
+        console.log("all good with unsubscription", data);
         document.getElementById(id).style.display = "none";
         return "all good";
       })
