@@ -5,14 +5,14 @@ services:
     build:
       context: .
     image: w3b3/web-app-001:latest
-    container_name: web-app-001
+    container_name: ui
+    hostname: ui
+    labels:
+      - "ca.codein=Web interface"
     volumes:
       - type: bind
         source: .
         target: /app
-    hostname: web-app-001
-    labels:
-      - "ca.codein=Web interface"
     networks:
       - youtube_api
 #    init: true
