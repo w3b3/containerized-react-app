@@ -67,27 +67,30 @@ function signup(email = "", password = "") {
       body: JSON.stringify({ email, password }),
     })
       .then((response) => {
-        console.log("all NOT good YET with sign up", response);
+        // console.log("all NOT good YET with sign up", response);
         if (!response.ok) {
-          showToast("Error sign up");
-          throw new Error(JSON.stringify(response));
+          const X = JSON.stringify(response);
+          console.error(X);
+          showToast(X);
+          throw new Error(X);
         }
-        showToast("sign up 1");
+        // showToast("sign up 1");
         return response.json();
       })
       .then((data) => {
-        console.log("sign up 2", data);
-        showToast("sign up 2");
-        document.getElementById(id).style.display = "none";
-        return "sign up 2";
+        // console.log("sign up 2", data);
+        // showToast("sign up 2");
+        // document.getElementById(id).style.display = "none";
+        return data;
       })
       .catch((error) => {
-        showToast("Error sign up 2");
-        console.error("Error sign up 2", error);
+        showToast(error.error);
+        console.error(error.error);
       });
   } catch (error) {
-    showToast("Error sign up 3");
-    console.error("Error sign up 3", error);
+    const X = JSON.stringify(error);
+    showToast(X);
+    console.error(X);
   }
 }
 
