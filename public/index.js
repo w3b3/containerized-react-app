@@ -99,9 +99,9 @@ function showToast(message) {
 
   new_toast.textContent = message;
   // new_toast.classList.add("show");
-  setTimeout(function () {
-    new_toast.style.display = "none";
-  }, 10000);
+  // setTimeout(function () {
+  // new_toast.style.display = "none";
+  // }, 10000);
   base_toast.appendChild(new_toast);
 }
 

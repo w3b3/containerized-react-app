@@ -115,6 +115,7 @@ body {
 }
 
 #toast, .toast {
+    width: 100%;
     background-color: antiquewhite;
     text-align: center;
     padding: 10px;
