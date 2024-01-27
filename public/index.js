@@ -96,24 +96,23 @@ function showToast(message) {
   const base_toast = document.getElementById("toast");
   const new_toast = document.createElement("h2");
   new_toast.classList.add("toast");
-  // position the toast at the bottom of the original toast
-  // toast.appendChild();
-  base_toast.appendChild(new_toast);
 
   new_toast.textContent = message;
   // new_toast.classList.add("show");
   setTimeout(function () {
     new_toast.style.display = "none";
   }, 10000);
+  base_toast.appendChild(new_toast);
 }
 
 document.addEventListener("DOMContentLoaded", function () {
-  if (sessionStorage.getItem("authToken")) {
-    //    fetchUserProfile();
-    fetchSubscriptions();
-    document.getElementById("logout").style.display = "block";
-  } else {
-    document.getElementById("load-more").style.display = "none";
-    document.getElementById("logout").style.display = "none";
-  }
+  console.info("DOM loaded and parsed");
+  // if (sessionStorage.getItem("authToken")) {
+  //    fetchUserProfile();
+  // fetchSubscriptions();
+  // document.getElementById("logout").style.display = "block";
+  // } else {
+  // document.getElementById("load-more").style.display = "none";
+  // document.getElementById("logout").style.display = "none";
+  // }
 });
