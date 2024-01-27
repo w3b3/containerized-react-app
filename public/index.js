@@ -96,6 +96,7 @@ function showToast(message) {
   const base_toast = document.getElementById("toast");
   const new_toast = document.createElement("h2");
   new_toast.classList.add("toast");
+  new_toast.classList.add("show");
 
   new_toast.textContent = message;
   // new_toast.classList.add("show");
