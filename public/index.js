@@ -64,7 +64,7 @@ function signup(email = "", password = "") {
       // body must be deserialized/unpacked in the destination.
       // the body content is a string
       // body: JSON.stringify({ auth, id }),
-      body: JSON.stringify({ id }),
+      body: JSON.stringify({ email, password }),
     })
       .then((response) => {
         console.log("all NOT good YET with sign up", response);
