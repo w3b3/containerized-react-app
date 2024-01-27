@@ -79,9 +79,12 @@ function signup(email = "", password = "") {
         return response.json();
       })
       .then((data) => {
-        // console.log("sign up 2", data);
-        // showToast("sign up 2");
+        console.log("final unpacked data", data);
+        showToast("final unpacked data");
         // document.getElementById(id).style.display = "none";
+        if (data.error) {
+          return data.error;
+        }
         return data;
       })
       .catch((error) => {
