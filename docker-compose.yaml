@@ -26,6 +26,8 @@ services:
         #      - /home/ds/containers/docker-volumes:/config
     env_file:
       - ./.env
+    environment:
+      - FOO=BUZZ
     expose:
       - 1234
     ports:

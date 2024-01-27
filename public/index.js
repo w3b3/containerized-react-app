@@ -43,107 +43,19 @@ function fetchUserProfile() {
 
 let nextPageToken = "";
 
-function fetchSubscriptions(pageToken) {
-  const authToken = sessionStorage.getItem("authToken");
-
-  if (!authToken) {
-    console.error("No auth token found");
-    return;
-  }
-
-  let url = `https://www.googleapis.com/youtube/v3/subscriptions?part=snippet,contentDetails&mine=true&maxResults=50`;
-
-  if (pageToken) {
-    url += `&pageToken=${pageToken}`;
-  }
-
-  fetch(url, {
-    method: "GET",
-    headers: {
-      Authorization: `Bearer ${authToken}`,
-      "Content-Type": "application/json",
-    },
-  })
-    .then((response) => {
-      if (!response.ok) {
-        throw new Error("Network response was not ok");
-      }
-      return response.json();
-    })
-    .then((data) => {
-      displaySubscriptions(data.items);
-      nextPageToken = data.nextPageToken || "";
-    })
-    .catch((error) => {
-      console.error("Error fetching subscriptions:", error);
-    });
-}
-
 // Call this function to fetch the next set of results
 function fetchNextPage() {
   if (nextPageToken) {
-    fetchSubscriptions(nextPageToken);
+    // fetchSubscriptions(nextPageToken);
   } else {
     console.log("No more pages to fetch");
   }
 }
 
-function displaySubscriptions(subscriptions) {
-  const list = document.getElementById("posts");
-  list.innerHTML = ""; // Clear existing list
-
-  subscriptions.forEach((sub) => {
-    const listItem = document.createElement("section");
-    //listItem.textContent = sub.snippet.title;
-    listItem.id = sub.id;
-    listItem.className = "card";
-    listItem.innerHTML = `
-                    <span class="icon">💕</span>
-                    <h1 class='title'>foo</h1>
-                    <a class="link">Go to the channel</a>
-                `;
-    // move the textContent above to inside the element with class = title
-    const titleElement = listItem.querySelector("h1.title");
-    titleElement.textContent = sub.snippet.title;
-    const imageElement = document.createElement("img");
-    imageElement.src = sub.snippet.thumbnails.default.url;
-    imageElement.alt = sub.snippet.title;
-    // imageElement.width = 100;
-    // imageElement.height = 100;
-    imageElement.className = "thumbnail";
-    titleElement.appendChild(imageElement);
-    const linkElement = listItem.querySelector("a.link");
-    linkElement.href = `https://youtube.com/channel/${sub.snippet.resourceId.channelId}`;
-    linkElement.target = "_blank";
-    linkElement.rel = "noopener noreferrer";
-    // link color should be blue and bold
-    linkElement.style.color = "blue";
-    linkElement.style.fontWeight = "bold";
-    if (sub.contentDetails.newItemCount > 0) {
-      linkElement.textContent = `🆕 Recently released ${sub.contentDetails.newItemCount} videos`;
-    }
-    // show the span.icon only if contentDetails.totalItemCount is greater than 3000
-    const iconElement = listItem.querySelector("span.icon");
-    iconElement.style.display =
-      sub.contentDetails.totalItemCount >= 10000 ? "unset" : "none";
-    const unsubscribeElement = document.createElement("button");
-    unsubscribeElement.textContent = sub.id;
-    unsubscribeElement.dataset.subscriptionId = sub.id;
-    unsubscribeElement.onclick = function () {
-      const subId = this.dataset.subscriptionId;
-      // const authToken = sessionStorage.getItem("authToken");
-      // unsubscribe(authToken, subId);
-      unsubscribe(subId);
-    };
-    listItem.appendChild(unsubscribeElement);
-    list.appendChild(listItem);
-  });
-}
-
-function unsubscribe(id) {
+function signup_email_password(email = "", password = "") {
   // console.log(id, auth);
   try {
-    fetch("https://api.codein.ca/unsubscribe", {
+    fetch("https://api.codein.ca/new", {
       method: "POST",
       headers: {
         //Authorization: `Bearer ${authToken}`,
@@ -155,23 +67,42 @@ function unsubscribe(id) {
       body: JSON.stringify({ id }),
     })
       .then((response) => {
-        console.log("all NOT good YET with unsubscription", response);
+        console.log("all NOT good YET with sign up", response);
         if (!response.ok) {
+          showToast("Error sign up");
           throw new Error(JSON.stringify(response));
         }
+        showToast("sign up 1");
         return response.json();
       })
       .then((data) => {
-        console.log("all good with unsubscription", data);
+        console.log("sign up 2", data);
+        showToast("sign up 2");
         document.getElementById(id).style.display = "none";
-        return "all good";
+        return "sign up 2";
       })
       .catch((error) => {
-        console.error("Error FETCH subscriptions:", error);
+        showToast("Error sign up 2");
+        console.error("Error sign up 2", error);
       });
   } catch (error) {
-    console.error("Error TRY/CATCH fetching subscriptions:", error);
+    showToast("Error sign up 3");
+    console.error("Error sign up 3", error);
   }
+}
+
+// show fixed toast message with message passed as parameter to this function
+function showToast(message) {
+  const new_toast = document.getElementById("toast").cloneNode(true);
+  // position the toast at the bottom of the original toast
+  // toast.appendChild();
+  document.getElementById("toast").appendChild(new_toast);
+
+  new_toast.textContent = message;
+  // new_toast.classList.add("show");
+  setTimeout(function () {
+    new_toast.style.display = "none";
+  }, 10000);
 }
 
 document.addEventListener("DOMContentLoaded", function () {
