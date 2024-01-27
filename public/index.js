@@ -52,7 +52,7 @@ function fetchNextPage() {
   }
 }
 
-function signup_email_password(email = "", password = "") {
+function signup(email = "", password = "") {
   // console.log(id, auth);
   try {
     fetch("https://api.codein.ca/new", {
