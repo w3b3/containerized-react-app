@@ -114,7 +114,7 @@ body {
     display: none;
 }
 
-#toast, .toast {
+#toast, .my_toast {
     width: 100%;
     background-color: antiquewhite;
     text-align: center;

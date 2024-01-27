@@ -93,10 +93,10 @@ function signup(email = "", password = "") {
 
 // show fixed toast message with message passed as parameter to this function
 function showToast(message) {
-  const base_toast = document.getElementById("toast");
+  const base_toast = document.getElementById("my_toast");
   const new_toast = document.createElement("h2");
-  new_toast.classList.add("toast");
-  new_toast.classList.add("show");
+  new_toast.classList.add("my_toast");
+  // new_toast.classList.add("show");
 
   new_toast.textContent = message;
   // new_toast.classList.add("show");
