@@ -114,6 +114,13 @@ body {
     display: none;
 }
 
+#toast, .toast {
+    background-color: antiquewhite;
+    text-align: center;
+    padding: 10px;
+    font-size: medium;
+}
+
 @media screen and (max-width: 1024px) {
     .card {
         width: 90vw;

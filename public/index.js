@@ -93,10 +93,12 @@ function signup(email = "", password = "") {
 
 // show fixed toast message with message passed as parameter to this function
 function showToast(message) {
-  const new_toast = document.getElementById("toast").cloneNode(true);
+  const base_toast = document.getElementById("toast");
+  const new_toast = document.createElement("h2");
+  new_toast.classList.add("toast");
   // position the toast at the bottom of the original toast
   // toast.appendChild();
-  document.getElementById("toast").appendChild(new_toast);
+  base_toast.appendChild(new_toast);
 
   new_toast.textContent = message;
   // new_toast.classList.add("show");
