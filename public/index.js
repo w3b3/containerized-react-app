@@ -69,10 +69,11 @@ function signup(email = "", password = "") {
       .then((response) => {
         // console.log("all NOT good YET with sign up", response);
         if (!response.ok) {
-          const X = JSON.stringify(response);
+          // const X = JSON.stringify(response);
+          const X = "something went wrong with sign up";
           console.error(X);
           showToast(X);
-          throw new Error(X);
+          throw new Error(response.statusText);
         }
         // showToast("sign up 1");
         return response.json();
@@ -84,8 +85,8 @@ function signup(email = "", password = "") {
         return data;
       })
       .catch((error) => {
-        showToast(error.error);
-        console.error(error.error);
+        showToast(error);
+        console.error(error);
       });
   } catch (error) {
     const X = JSON.stringify(error);
